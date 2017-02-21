@@ -12,12 +12,14 @@ with open('imp2input.txt') as inputfile:
 		inputChars.append(line.strip().split(','))
 inputfile.close()
 
-print len(cost[0])
-
 #omit the "*" character
 myChars = [];
 for i in range(1, len(cost[0])):
 	myChars.append(cost[0][i])
+
+#example to access 1 inputChar chunk
+# for i in range(0, len(inputChars[0][0])):
+# 	print inputChars[0][0][i]
 
 print cost
 print "\n\n\n"
