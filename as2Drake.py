@@ -45,6 +45,10 @@ while i < len(stringTemp2):
 # print "string2:\n", string2
 # print "\n\n\n"
 
+#Function used in algorithm
+def diff(char1, char2):
+	return !(char1 == char2)
+
 #compare string1[0] with string2[0]
 #        string1[1] with string2[1], etc.
 #Return (newString1, newString2, minVal)
@@ -53,7 +57,11 @@ def algorithm(string1, string2, pairVals):
 	if(len(string1) == 1 or len(string2) == 1):
 		return 999 #dummy value for now
 
-	#return the minimum of the 3 cases
+	#return the minimum of the 3 cases:
+	# 1) E(i-1, j) + 1
+	# 2) E(i, j-1) + 1
+	# 3) E(i-1, j-1) + diff(i,j)
+
 
 # answers = []
 # for i in range(0, len(inputChars)):
