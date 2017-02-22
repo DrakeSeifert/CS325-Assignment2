@@ -47,6 +47,7 @@ while i < len(stringTemp2):
 
 #compare string1[0] with string2[0]
 #        string1[1] with string2[1], etc.
+#Return (newString1, newString2, minVal)
 def algorithm(string1, string2, pairVals):
 	#Base case
 	if(len(string1) == 1 or len(string2) == 1):
