@@ -1,5 +1,3 @@
-
-
 cost = []
 with open('imp2cost.txt') as inputfile:
 	for line in inputfile:
@@ -12,17 +10,19 @@ with open('imp2input.txt') as inputfile:
 		inputChars.append(line.strip().split(','))
 inputfile.close()
 
-#omit the "*" character
-myChars = [];
-for i in range(1, len(cost[0])):
-	myChars.append(cost[0][i])
+pairVals = {}
+for i in range(1, len(cost[0])): #col
+	for j in range(1, len(cost[0])): #row
+		pairVals[(cost[0][i], cost[j][0])] = cost[i][j]
+
+#print pairVals
 
 #example to access 1 inputChar chunk
 # for i in range(0, len(inputChars[0][0])):
 # 	print inputChars[0][0][i]
 
-print cost
-print "\n\n\n"
-print myChars
-print "\n\n\n"
-print inputChars
+# print cost
+# print "\n\n\n"
+# print inputChars
+
+#def algorithm(pairVals, inputChars):
