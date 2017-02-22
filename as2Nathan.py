@@ -44,8 +44,8 @@ def algorithm(string1, string2, pairVals):
         # R
         # 1
         # For ptr, just ints so 1 is down, 2 is diagonal, 3 is left
-        ptr = numpy.zeros((len(string1)+1,len(string2)+1), dtype=int)
-        editCost = numpy.zeros((len(string1)+1, len(string2)+1), dtype=int)
+        ptr = numpy.full((len(string1)+1,len(string2)+1), -1, dtype=int)
+        editCost = numpy.full((len(string1)+1, len(string2)+1), -1, dtype=int)
 	#Base case
         editCost[0][0] = 0
         for i in range(len(string1)):
@@ -63,16 +63,21 @@ def algorithm(string1, string2, pairVals):
                         if(alignCost <= insertCost and alignCost <= deleteCost):
                                 #Align
                                 editCost[i][j] = alignCost
-                                ptr[i][j] = 2#Diagonal
+                                ptr[i][j] = 2 #Diagonal
                         elif(insertCost <= alignCost and insertCost <= deleteCost):
                                 #Insert
                                 editCost[i][j] = insertCost
-                                ptr[i][j] = 3#Left
+                                ptr[i][j] = 3 #Left
                         elif(deleteCost <= insertCost and deleteCost <= alignCost):
                                 #Delete
-                                editCost[i][j] = 1#Down
+                                editCost[i][j] = deleteCost
+                                ptr[i][j] = 1 #Down
                         else:
                                 print "Somethings strange in the neighborhoodz"
+        #Bactrace function
+        #Start at bottom left value
+        #Build strings from end
+                        
 	#return the minimum of the 3 cases
         print editCost
 # answers = []
