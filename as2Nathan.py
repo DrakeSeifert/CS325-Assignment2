@@ -83,3 +83,4 @@ def algorithm(string1, string2, pairVals):
 # answers = []
 # for i in range(0, len(inputChars)):
 # 	answers.append(algorithm(string1[i], string2[i], pairVals))
+algorithm(string1[0], string2[0], pairVals)
