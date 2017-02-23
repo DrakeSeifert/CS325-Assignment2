@@ -11,30 +11,17 @@ with open('imp2input.txt') as inputfile:
 	for line in inputfile:
 		inputChars.append(line.strip().split(','))
 inputfile.close()
-# print inputChars
 
 pairVals = {}
 for i in range(1, len(cost[0])): #col
 	for j in range(1, len(cost[0])): #row
 		pairVals[(cost[0][i], cost[j][0])] = cost[i][j]
 
-stringTemp1 = []
-stringTemp2 = []
-for i in range(0, len(inputChars)):
-	stringTemp1.append(inputChars[i][0])
-	stringTemp2.append(inputChars[i][1])
-
-i = 0
 string1 = []
-while i < len(stringTemp1):
-	string1.append(list(stringTemp1[i]))
-	i+=1
-
-i = 0
 string2 = []
-while i < len(stringTemp2):
-	string2.append(list(stringTemp2[i]))
-	i+=1
+for i in range(0, len(inputChars)):
+	string1.append(inputChars[i][0])
+	string2.append(inputChars[i][1])
 
 def algorithm(string1, string2, pairVals):
         # * S T R 2
@@ -85,10 +72,10 @@ def algorithm(string1, string2, pairVals):
         #Build strings from end
         i, j = height-1, width-1
         s1Idx, s2Idx = len(string1) - 1, len(string2)-1
-        print ptr[i][j]
+        # print ptr[i][j]
         while i >=0 and j >= 0:
                 direct = ptr[i][j]
-                print direct
+                # print direct
                 if direct == 1:
                         #Down or delete
                         out1 = string1[s1Idx] + out1
@@ -113,11 +100,20 @@ def algorithm(string1, string2, pairVals):
                         break
                 else:
                         print "Invisible man sleeping in your bed"
-	#return the minimum of the 3 cases
-        print out1
-        print out2
-        print editCost[height-1][width-1]
-# answers = []
-# for i in range(0, len(inputChars)):
-# 	answers.append(algorithm(string1[i], string2[i], pairVals))
-algorithm(string1[1], string2[1], pairVals)
+                        exit(2)
+
+        return out1, out2, editCost[height-1][width-1]
+
+outFile = open("imp2output.txt", "w") #clear contents
+outFile.close()
+outFile = open("imp2output.txt", "a")
+for i in range(0, len(inputChars)):
+        out1, out2, cost = algorithm(string1[i], string2[i], pairVals)
+
+        outFile.write(out1)
+        outFile.write(",")
+        outFile.write(out2)
+        outFile.write(":")
+        outFile.write(str(cost))
+        outFile.write("\n")
+outFile.close()
