@@ -15,29 +15,16 @@ for i in range(1, len(cost[0])): #col
 	for j in range(1, len(cost[0])): #row
 		pairVals[(cost[0][i], cost[j][0])] = cost[i][j]
 
-stringTemp1 = []
-stringTemp2 = []
-for i in range(0, len(inputChars)):
-	stringTemp1.append(inputChars[i][0])
-	stringTemp2.append(inputChars[i][1])
-
-i = 0
 string1 = []
-while i < len(stringTemp1):
-	string1.append(list(stringTemp1[i]))
-	i+=1
-
-i = 0
 string2 = []
-while i < len(stringTemp2):
-	string2.append(list(stringTemp2[i]))
-	i+=1
+for i in range(0, len(inputChars)):
+	string1.append(inputChars[i][0])
+	string2.append(inputChars[i][1])
 
 def alg(string1, string2):
 
 	print "*************************************************"
 	print string1
-	print "\n"
 	print string2
 	print "*************************************************"
 
@@ -98,3 +85,4 @@ def alg(string1, string2):
 
 print alg(string1[1], string2[1])
 # print alg("exponential", "polynomial")
+# print alg("INTENTION", "EXECUTION")
