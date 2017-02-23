@@ -47,13 +47,17 @@ def algorithm(string1, string2, pairVals):
         height = len(string1)+1
         ptr = [[-1]*width for x in range(height)]
         editCost = [[-1]*width for x in range(height)]
+
+        c1 = c2 = ''
+        out1 = out2 = ""
+        direct = 0
         
 	#Base case
-        editCost[0][0] = 0
-        for i in range(1, height - 1):
+        editCost[0][0] = ptr[0][0] = 0
+        for i in range(1, height):
                 editCost[i][0] = editCost[i-1][0] + int(pairVals[(string1[i-1], '-')])
                 ptr[i][0] = 1  #Down for delete
-        for i in range(1, width - 1):
+        for i in range(1, width):
                 editCost[0][i] = editCost[0][i-1] + int(pairVals[(string2[i-1], '-')])
                 ptr[0][i] = 3  #Left for insert
 
@@ -79,10 +83,41 @@ def algorithm(string1, string2, pairVals):
         #Bactrace function
         #Start at bottom left value
         #Build strings from end
-                        
+        i, j = height-1, width-1
+        s1Idx, s2Idx = len(string1) - 1, len(string2)-1
+        print ptr[i][j]
+        while i >=0 and j >= 0:
+                direct = ptr[i][j]
+                print direct
+                if direct == 1:
+                        #Down or delete
+                        out1 = string1[s1Idx] + out1
+                        out2 = '-' + out2
+                        s1Idx = s1Idx - 1
+                        i = i-1
+                elif direct == 2:
+                        #Diagonal or align
+                        out1 = string1[s1Idx] + out1
+                        out2 = string2[s2Idx] + out2
+                        s1Idx = s1Idx - 1
+                        s2Idx = s2Idx - 1
+                        i = i - 1
+                        j = j - 1
+                elif direct == 3:
+                        #Left or insert
+                        out1 = '-' + out1
+                        out2 = string2[s2Idx] + out2
+                        s2Idx = s2Idx - 1
+                        j = j - 1
+                elif ptr[i][j] == 0:
+                        break
+                else:
+                        print "Invisible man sleeping in your bed"
 	#return the minimum of the 3 cases
+        print out1
+        print out2
         print editCost[height-1][width-1]
 # answers = []
 # for i in range(0, len(inputChars)):
 # 	answers.append(algorithm(string1[i], string2[i], pairVals))
-algorithm(string1[2], string2[2], pairVals)
+algorithm(string1[1], string2[1], pairVals)
