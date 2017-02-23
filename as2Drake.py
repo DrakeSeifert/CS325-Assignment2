@@ -35,24 +35,6 @@ while i < len(stringTemp2):
 	string2.append(list(stringTemp2[i]))
 	i+=1
 
-# T = [[-1 for x in range(len(string2[0])+1)] for y in range(len(string1[0])+1)]
-
-# for i in range(0, len(T[0])):
-# 	T[0][i] = i;
-
-# for i in range(0, len(T)):
-# 	T[i][0] = i
-
-# for i in range(1, len(string1[0])):
-# 	for j in range(1, len(string2[0])):
-# 		if(string1[0][i-1] == string2[0][j-1]):
-# 			T[i][j] = T[i-1][j-1]
-# 		else:
-# 			T[i][j] = 1 + min(T[i-1][j-1], T[i-1][j], T[i][j-1])
-
-# for i in range(0, len(T)):
-# 	print T[i]
-
 def alg(string1, string2, index):
 
 	print len(string1)
@@ -76,8 +58,6 @@ def alg(string1, string2, index):
 	for i in range(0, len(T)):
 		print T[i]
 
-	#exit(0)
-
 	i = len(T) - 1
 	j = len(T[0]) - 1
 
@@ -100,7 +80,7 @@ def alg(string1, string2, index):
 			print "Delete in string2: ", string2[j-1]
 			j -= 1
 		else:
-			print "Error" #Infinite loop :(
+			print "Error"
 
 
 print alg(string1[0], string2[0], 0)
