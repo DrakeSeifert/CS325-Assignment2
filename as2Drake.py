@@ -29,42 +29,58 @@ while i < len(stringTemp1):
 	string1.append(list(stringTemp1[i]))
 	i+=1
 
-# print "temp1:\n", stringTemp1
-# print "\n\n\n"
-# print "string1:\n", string1
-# print "\n\n\n"
-
 i = 0
 string2 = []
 while i < len(stringTemp2):
 	string2.append(list(stringTemp2[i]))
 	i+=1
 
-# print "temp2:\n", stringTemp2
-# print "\n\n\n"
-# print "string2:\n", string2
-# print "\n\n\n"
+T = [[-1 for x in range(len(string2[0])+1)] for y in range(len(string1[0])+1)]
 
-#Function used in algorithm
-def diff(char1, char2):
-	return !(char1 == char2)
+# print len(string1[0])+1, len(T)
+# print len(string2[0])+1, len(T[0])
 
-#compare string1[0] with string2[0]
-#        string1[1] with string2[1], etc.
-#Return (newString1, newString2, minVal)
-def alg(string1, string2, pairVals):
-	#Base case
-	# alg(i, 0) = i
-	# alg(0, j) = j
-	if(len(string1) == 1 or len(string2) == 1):
-		return 999 #dummy value for now
+for i in range(0, len(T[0])):
+	T[0][i] = i;
 
-	#return the minimum of the 3 cases:
-	# 1) alg(i-1, j) + 1
-	# 2) alg(i, j-1) + 1
-	# 3) alg(i-1, j-1) + diff(i,j)
+for i in range(0, len(T)):
+	T[i][0] = i
+
+for i in range(1, len(string1[0])):
+	for j in range(1, len(string2[0])):
+		if(string1[0][i-1] == string2[0][j-1]):
+			T[i][j] = T[i-1][j-1]
+		else:
+			T[i][j] = 1 + min(T[i-1][j-1], T[i-1][j], T[i][j-1])
+
+for i in range(0, len(T)):
+	print T[i]
+
+#exit(1)
+def alg(T, string1, string2):
+	i = len(T) - 1
+	j = len(T[0]) - 1
+
+	while(True):
+
+		if(i <= 0 or j <= 0):
+			break
+
+		if(string1[i - 1] == string2[j - 1]):
+			i -= 1
+			j -= 1
+		elif(T[i][j] == T[i-1][j-1] + 1):
+			print "Edit", string2[j-1],"to",string1[i-1],"in string1"
+			i -= 1
+			j -= 1
+		elif(T[i][j] == T[i-1][j] + 1):
+			print "Delete in string1: ", string1[i-1]
+			i -= 1
+		elif(T[i][j] == T[i][j-1] + 1):
+			print "Delete in string2: ", strint2[j-1]
+			j -= 1
+		else:
+			print "Error" #Infinite loop :(
 
 
-# answers = []
-# for i in range(0, len(inputChars)):
-# 	answers.append(alg(string1[i], string2[i], pairVals))
+print alg(T, string1[0], string2[0])
