@@ -66,8 +66,8 @@ def alg(string1, string2, index):
 	for i in range(0, len(T)):
 		T[i][0] = i
 
-	for i in range(1, len(string1)):
-		for j in range(1, len(string2)):
+	for i in range(1, len(string1)+1):
+		for j in range(1, len(string2)+1):
 			if(string1[i-1] == string2[j-1]):
 				T[i][j] = T[i-1][j-1]
 			else:
@@ -97,7 +97,7 @@ def alg(string1, string2, index):
 			print "Delete in string1: ", string1[i-1]
 			i -= 1
 		elif(T[i][j] == T[i][j-1] + 1):
-			print "Delete in string2: ", strint2[j-1]
+			print "Delete in string2: ", string2[j-1]
 			j -= 1
 		else:
 			print "Error" #Infinite loop :(
