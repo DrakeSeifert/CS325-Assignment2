@@ -35,29 +35,39 @@ while i < len(stringTemp2):
 
 def alg(string1, string2):
 
+	print "*************************************************"
+	print string1
+	print "\n"
+	print string2
+	print "*************************************************"
+
 	#Calculate edit distance table
-	T = [[-1 for x in range(len(string2)+1)] for y in range(len(string1)+1)]
+	EDT = [[-1 for x in range(len(string2)+1)] for y in range(len(string1)+1)]
+	#T[0][0] starts at top left
 	#string1 on y axis, string2 on x axis
 	#Usage: T[string1][string2] or T[y-axis][x-axis]
 
-	for i in range(0, len(T[0])):
-		T[0][i] = i;
+	for i in range(0, len(EDT[0])):
+		EDT[0][i] = i;
 
-	for i in range(0, len(T)):
-		T[i][0] = i
+	for i in range(0, len(EDT)):
+		EDT[i][0] = i
 
 	for i in range(1, len(string1)+1):
 		for j in range(1, len(string2)+1):
 			if(string1[i-1] == string2[j-1]):
-				T[i][j] = T[i-1][j-1]
+				EDT[i][j] = EDT[i-1][j-1]
 			else:
-				T[i][j] = 1 + min(T[i-1][j-1], T[i-1][j], T[i][j-1])
+				EDT[i][j] = 1 + min(EDT[i-1][j-1], EDT[i-1][j], EDT[i][j-1])
 
-	for i in range(0, len(T)):
-		print T[i]
+	for i in range(0, len(EDT)):
+		print EDT[i]
 
-	i = len(T) - 1
-	j = len(T[0]) - 1
+	i = len(EDT) - 1
+	j = len(EDT[0]) - 1
+
+	# newString1 = string1
+	# newString2 = string2
 
 	#Find deletions, and substitutions
 	while(True):
@@ -68,21 +78,23 @@ def alg(string1, string2):
 		if(string1[i - 1] == string2[j - 1]):
 			i -= 1
 			j -= 1
-		elif(T[i][j] == T[i-1][j-1] + 1):
-			print "Edit", string2[j-1],"in string2 to",string1[i-1],"in string1"
+		elif(EDT[i][j] == EDT[i-1][j-1] + 1):
+			print "Edit", string2[j-1],"at", j,"in string2 to",string1[i-1],"at",i,"in string1"
 			i -= 1
 			j -= 1
-		elif(T[i][j] == T[i-1][j] + 1):
-			print "Delete in string1: ", string1[i-1]
+		elif(EDT[i][j] == EDT[i-1][j] + 1):
+			print "Delete in string1: ", string1[i],"at",i
 			i -= 1
-		elif(T[i][j] == T[i][j-1] + 1):
-			print "Delete in string2: ", string2[j-1]
+		elif(EDT[i][j] == EDT[i][j-1] + 1):
+			print "Delete in string2: ", string2[j-1],"at",j
 			j -= 1
 		else:
 			print "Error"
+			exit(1)
 
-	return T[len(string1)][len(string2)]
+	print abs(i - j)
+	return EDT[len(string1)][len(string2)]
 
 
-#print alg(string1[0], string2[0], 0)
-print alg("exponential", "polynomial")
+print alg(string1[1], string2[1])
+# print alg("exponential", "polynomial")
