@@ -1,4 +1,3 @@
-import numpy
 import pprint
 
 cost = []
@@ -44,19 +43,22 @@ def algorithm(string1, string2, pairVals):
         # R
         # 1
         # For ptr, just ints so 1 is down, 2 is diagonal, 3 is left
-        ptr = numpy.full((len(string1)+1,len(string2)+1), -1, dtype=int)
-        editCost = numpy.full((len(string1)+1, len(string2)+1), -1, dtype=int)
+        width = len(string2)+1
+        height = len(string1)+1
+        ptr = [[-1]*width for x in range(height)]
+        editCost = [[-1]*width for x in range(height)]
+        
 	#Base case
         editCost[0][0] = 0
-        for i in range(len(string1)):
-                editCost[i+1][0] = editCost[i-1][0] + int(pairVals[(string1[i], '-')])
-                ptr[i+1][0] = 1  #Down for delete
-        for i in range(len(string2)):
-                editCost[0][i+1] = editCost[0][i+1] + int(pairVals[(string2[i], '-')])
-                ptr[0][i+1] = 3  #Left for insert
+        for i in range(1, height - 1):
+                editCost[i][0] = editCost[i-1][0] + int(pairVals[(string1[i-1], '-')])
+                ptr[i][0] = 1  #Down for delete
+        for i in range(1, width - 1):
+                editCost[0][i] = editCost[0][i-1] + int(pairVals[(string2[i-1], '-')])
+                ptr[0][i] = 3  #Left for insert
 
-        for i in range(1, len(string1)):
-                for j in range(1, len(string2)):
+        for i in range(1, height):
+                for j in range(1, width):
                         alignCost = editCost[i-1][j-1] + int(pairVals[(string1[i-1], string2[j-1])])
                         insertCost = editCost[i][j-1] + int(pairVals[('-',string2[j-1])])
                         deleteCost = editCost[i-1][j] + int(pairVals[(string1[i-1],'-')])
@@ -79,8 +81,8 @@ def algorithm(string1, string2, pairVals):
         #Build strings from end
                         
 	#return the minimum of the 3 cases
-        print editCost
+        print editCost[height-1][width-1]
 # answers = []
 # for i in range(0, len(inputChars)):
 # 	answers.append(algorithm(string1[i], string2[i], pairVals))
-algorithm(string1[0], string2[0], pairVals)
+algorithm(string1[2], string2[2], pairVals)
