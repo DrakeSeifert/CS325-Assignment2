@@ -9,13 +9,11 @@ with open('imp2input.txt') as inputfile:
 	for line in inputfile:
 		inputChars.append(line.strip().split(','))
 inputfile.close()
-# print inputChars
 
 pairVals = {}
 for i in range(1, len(cost[0])): #col
 	for j in range(1, len(cost[0])): #row
 		pairVals[(cost[0][i], cost[j][0])] = cost[i][j]
-#print pairVals
 
 stringTemp1 = []
 stringTemp2 = []
@@ -35,12 +33,12 @@ while i < len(stringTemp2):
 	string2.append(list(stringTemp2[i]))
 	i+=1
 
-def alg(string1, string2, index):
+def alg(string1, string2):
 
-	print len(string1)
-	print len(string2)
+	#Calculate edit distance table
 	T = [[-1 for x in range(len(string2)+1)] for y in range(len(string1)+1)]
 	#string1 on y axis, string2 on x axis
+	#Usage: T[string1][string2] or T[y-axis][x-axis]
 
 	for i in range(0, len(T[0])):
 		T[0][i] = i;
@@ -61,6 +59,7 @@ def alg(string1, string2, index):
 	i = len(T) - 1
 	j = len(T[0]) - 1
 
+	#Find deletions, and substitutions
 	while(True):
 
 		if(i <= 0 or j <= 0):
@@ -70,7 +69,7 @@ def alg(string1, string2, index):
 			i -= 1
 			j -= 1
 		elif(T[i][j] == T[i-1][j-1] + 1):
-			print "Edit", string2[j-1],"to",string1[i-1],"in string1"
+			print "Edit", string2[j-1],"in string2 to",string1[i-1],"in string1"
 			i -= 1
 			j -= 1
 		elif(T[i][j] == T[i-1][j] + 1):
@@ -82,5 +81,8 @@ def alg(string1, string2, index):
 		else:
 			print "Error"
 
+	return T[len(string1)][len(string2)]
 
-print alg(string1[0], string2[0], 0)
+
+#print alg(string1[0], string2[0], 0)
+print alg("exponential", "polynomial")
