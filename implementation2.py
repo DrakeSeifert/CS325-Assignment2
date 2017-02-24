@@ -75,7 +75,6 @@ def algorithm(string1, string2, pairVals):
         # print ptr[i][j]
         while i >=0 and j >= 0:
                 direct = ptr[i][j]
-                # print direct
                 if direct == 1:
                         #Down or delete
                         out1 = string1[s1Idx] + out1
